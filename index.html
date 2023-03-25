@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quiz</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body onload="modify()" style="background: gray">
+    <div class="div">
+      <div class="main">
+        <table class="table">
+          <caption>
+            Quiz
+          </caption>
+          <tr>
+            <td colspan="4" style="padding-left: 4px">
+              <span id="q">Q<span id="qno"></span></span
+              ><span id="ques"> </span>
+            </td>
+          </tr>
+          <tr class="row">
+            <td>
+              <input type="radio" id="op1" value="option1" name="options" />
+              <label id="l1" for="op1"></label>
+            </td>
+            <td>
+              <input type="radio" id="op2" value="option2" name="options" />
+              <label id="l2" for="op2"></label>
+            </td>
+            <td>
+              <input type="radio" id="op3" value="option3" name="options" />
+              <label id="l3" for="op3"></label>
+            </td>
+            <td>
+              <input type="radio" id="op4" value="option4" name="options" />
+              <label id="l4" for="op4"></label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input
+                type="submit"
+                id="submit"
+                value="Submit"
+                onclick="modify()"
+              />
+            </td>
+          </tr>
+        </table>
+        <div class="result">
+          <h2
+            style="
+              text-decoration: underline;
+              text-decoration-color: orange;
+              color: darkblue;
+            "
+          >
+            Result
+          </h2>
+          <h3>Your Score is <span id="res"></span></h3>
+          <br />
+          <button id="btn" onclick="modify()">Click to play Again</button>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
