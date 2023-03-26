@@ -1,79 +1,87 @@
-let q = document.getElementById("ques");
-let l1 = document.getElementById("l1");
-let l2 = document.getElementById("l2");
-let l3 = document.getElementById("l3");
-let l4 = document.getElementById("l4");
-let op = document.getElementsByName("options");
-let qno = document.getElementById("qno");
-let res = document.getElementById("res");
-let ind = 0;
-
-var questions = [
+const quizData = [
   {
-    question: "Which of the symbol is used to write css for id",
-    option1: ".",
-    option2: "#",
-    option3: ">",
-    option4: "~",
-    answer: "option2",
+    question: "Which language runs in a web browser?",
+    a: "Java",
+    b: "C",
+    c: "Python",
+    d: "javascript",
+    correct: "d",
   },
   {
-    question: "Who is making the Web standards?",
-    option1: " The World Wide Web Consortium",
-    option2: "Google",
-    option3: "Microsoft",
-    option4: "Morzilla",
-    answer: "option1",
+    question: "What does CSS stand for?",
+    a: "Central Style Sheets",
+    b: "Cascading Style Sheets",
+    c: "Cascading Simple Sheets",
+    d: "Cars SUVs Sailboats",
+    correct: "b",
   },
   {
-    question: "What is the correct HTML element for inserting a line break?",
-    option1: "<hr>",
-    option2: "<break>",
-    option3: "<br>",
-    option4: "<lb>",
-    answer: "option3",
+    question: "What does HTML stand for?",
+    a: "Hypertext Markup Language",
+    b: "Hypertext Markdown Language",
+    c: "Hyperloop Machine Language",
+    d: "Helicopters Terminals Motorboats Lamborginis",
+    correct: "a",
   },
   {
-    question: "Choose the correct HTML element for the largest heading:",
-    option1: "<h1>",
-    option2: "<header>",
-    option3: "<head>",
-    option4: "<h6>",
-    answer: "option1",
+    question: "What year was JavaScript launched?",
+    a: "1996",
+    b: "1995",
+    c: "1994",
+    d: "none of the above",
+    correct: "b",
   },
 ];
+const quizc = document.getElementById("quiz");
+const answerRadio = document.querySelectorAll(".answer");
+const question = document.getElementById("question");
+const option1 = document.getElementById("a_text");
+const option2 = document.getElementById("b_text");
+const option3 = document.getElementById("c_text");
+const option4 = document.getElementById("d_text");
+const submitBtn = document.getElementById("submit");
+let currentQuiz = 0;
 let score = 0;
-let quiz = document.getElementsByClassName("table");
-let r = document.getElementsByClassName("result");
-function Check() {
-  for (var i = 0; i < op.length; i++) {
-    if (op[i].checked) {
-      if (op[i].value == questions[ind - 1].answer) score += 5;
-      document.querySelector(
-        "input[type=radio][value=" + op[i].value + "]:checked"
-      ).checked = false;
+quiz();
+function quiz() {
+  selectAns();
+  let data = quizData[currentQuiz];
+  question.innerText = data.question;
+  option1.innerText = data.a;
+  option2.innerText = data.b;
+  option3.innerText = data.c;
+  option4.innerText = data.d;
+}
+function selectAns() {
+  answerRadio.forEach(function (ele) {
+    ele.checked = false;
+  });
+}
+function answer() {
+  let ans;
+  answerRadio.forEach(function (answerEl) {
+    if (answerEl.checked) {
+      ans = answerEl.id;
     }
-  }
+  });
+  return ans;
 }
 
-function modify() {
-  if (ind != 0) Check();
-  if (ind == 4) {
-    quiz[0].style.display = "none";
-    r[0].style.display = "block";
-    res.innerText = score;
-    res.style.color = "blue";
-    score = 0;
-    ind = 0;
-  } else {
-    r[0].style.display = "none";
-    quiz[0].style.display = "block";
-    qno.innerText = ind + 1;
-    q.innerText = questions[ind].question;
-    l1.innerText = questions[ind].option1;
-    l2.innerText = questions[ind].option2;
-    l3.innerText = questions[ind].option3;
-    l4.innerText = questions[ind].option4;
-    ind++;
+submitBtn.addEventListener("click", () => {
+  const ans = answer();
+  console.log(ans);
+  if (answer) {
+    if (ans === quizData[currentQuiz].correct) {
+      score++;
+    }
+    currentQuiz++;
+    if (currentQuiz < quizData.length) {
+      quiz();
+    } else {
+      quizc.innerHTML = `
+           <h2>You answered ${score} questions correctly</h2>
+           <button onclick="location.reload()">Reload</button>
+           `;
+    }
   }
-}
+});
